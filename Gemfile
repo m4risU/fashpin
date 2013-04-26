@@ -4,6 +4,7 @@ gem 'rails', '3.2.11'
 gem 'jquery-rails'
 gem 'devise', '2.1.2'
 gem 'simple_form'
+gem "paperclip", "~> 3.0"
 
 group :production do
   gem 'pg'
