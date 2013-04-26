@@ -1,3 +1,13 @@
+<% if user_signed_in? %>
+<div class="hero-unit">
+
+	<h1>You're logged in</h1>
+
+</div>
+
+
+<% else %>
+
 <div class="hero-unit">
 
 
@@ -7,14 +17,11 @@
 		<%= link_to "Google", "http://www.google.com" %>
 	</p>
 
+
 	<p>
-		<%= link_to "Sign Up Now", "#",class: "btn btn-primary btn-large" %>
+		<%= link_to "Sign Up Now!", new_user_registration_path, class: "btn btn-primary btn-large" %>
 	</p>
 
-	<div class="footer">
-		<small>
-	[.........] by [...]
-		</small>	
-	</div>
-
 </div>
+
+<% end %>
