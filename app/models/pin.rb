@@ -1,4 +1,6 @@
 class Pin < ActiveRecord::Base
+  extend FriendlyId
+  friendly_id :description, use: :slugged
   attr_accessible :description, :price, :image, :image_remote_url
 
   validates :description, presence: true
