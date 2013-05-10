@@ -1,10 +1,11 @@
 class PinsController < ApplicationController
   before_filter :authenticate_user!, except: [:index]
+  before_filter :generate_channel, only: [:new, :create]
 
   # GET /pins
   # GET /pins.json
   def index
-    @pins = Pin.order("created_at desc").page(params[:page]).per_page(20)
+    @pins = Pin.order('created_at desc').page(params[:page]).per_page(20)
 
     respond_to do |format|
       format.html # index.html.erb
@@ -50,7 +51,10 @@ class PinsController < ApplicationController
         format.html { redirect_to @pin, notice: 'Pin was successfully created.' }
         format.json { render json: @pin, status: :created, location: @pin }
       else
-        format.html { render action: "new" }
+        format.html {
+          ScrapperWorker.perform_async([params[:pin][:product_url], @channel], 5) if params[:pin] && params[:pin][:product_url]
+          render action: 'new'
+        }
         format.json { render json: @pin.errors, status: :unprocessable_entity }
       end
     end
@@ -82,5 +86,11 @@ class PinsController < ApplicationController
       format.html { redirect_to pins_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def generate_channel
+    o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+    @channel = (0...30).map { o[rand(o.length)] }.join
   end
 end

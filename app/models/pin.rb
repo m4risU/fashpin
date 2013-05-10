@@ -1,7 +1,9 @@
 class Pin < ActiveRecord::Base
   extend FriendlyId
   friendly_id :description, use: :slugged
-  attr_accessible :description, :price, :image, :image_remote_url
+  attr_accessible :description, :price, :image, :image_remote_url, :product_url
+
+  attr_accessor :product_url
 
   validates :description, presence: true
   validates :price, presence: true
@@ -17,7 +19,6 @@ class Pin < ActiveRecord::Base
   def image_remote_url=(url_value)
     self.image = URI.parse(url_value) unless url_value.blank?
     super
-
   end
   
 end

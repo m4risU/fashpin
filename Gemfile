@@ -10,6 +10,10 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'friendly_id', '~> 4.0.9'
 
+gem 'nokogiri'
+gem 'sidekiq'
+gem 'pusher'
+
 group :production do
   gem 'pg'
 end
