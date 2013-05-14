@@ -15,20 +15,49 @@
             alert(data['error']);
         });
         channel.bind('images', function (data) {
+            $('div#images-spinner').hide();
+            $('.pin_product_url').hide();
             $('#images').html(data['images']);
+            $('#images img').click(function () {
+                $('#pin_image_remote_url').val($(this).attr('src'));
+                $('#images div').hide();
+                $('.form-inputs').show();
+            });
         });
     </script>
 <% end %>
 
-<%= simple_form_for @pin do |f| %>
-    <%= f.input :product_url, as: :string %>
-    <%= f.submit %>
-<% end %>
-
-<div id="images"></div>
-
 <h1>New pin</h1>
 
-<%= render 'form' %>
+<%= simple_form_for(@pin, html: {class: "form-horizontal"}) do |f| %>
+
+    <%#= f.error_notification %>
+    <%#= f.full_error :image_file_size, class: "alert alert-error" %>
+    <%#= f.full_error :image_content_type, class: "alert alert-error" %>
+
+    <%= f.input :product_url, as: :string %>
+
+    <!-- show spinner after url parsing has been triggered, hide it when images arrive -->
+    <div id="images-spinner" style="display:none">
+      images spinner should be here, this text is to be removed and gif is to be used
+    </div>
+
+    <div id="images" class="masonry">
+      <!-- images will appear here -->
+    </div>
+
+    <div class="clearfix"></div>
+    <%= f.input :image_remote_url, as: :hidden %>
+    <div class="form-inputs" style="display: none;">
+      <%= f.input :description, as: :text, input_html: {rows: 3} %>
+      <%= f.input :price %>
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, class: 'btn btn-primary' %>
+    </div>
+
+<% end %>
+
 
 <%= link_to 'Back', pins_path %>

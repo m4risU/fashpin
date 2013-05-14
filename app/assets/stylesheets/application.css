@@ -11,3 +11,8 @@
  *= require_self
  *= require_tree .
 */
+
+.sbox {
+    max-width: 160px;
+    max-height: 160px;
+}

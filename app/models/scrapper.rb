@@ -9,7 +9,11 @@ class Scrapper
 
   def images
     Nokogiri::HTML(open(@url)).xpath("//img/@src").map do |src|
-      "<img src=\"#{make_absolute(src, @url)}\" class=\"img-polaroid\"/>".html_safe
+      "<div class=\"box masonry-brick\">
+      <a href=\"#\">
+      <img src=\"#{make_absolute(src, @url)}\"/>
+      </a>
+      </div>".html_safe
     end
   end
 
