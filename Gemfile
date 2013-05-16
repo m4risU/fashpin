@@ -14,6 +14,8 @@ gem 'nokogiri'
 gem 'sidekiq'
 gem 'pusher'
 
+gem 'capistrano'
+
 group :production do
   gem 'pg'
 end
