@@ -15,6 +15,7 @@ gem 'sidekiq'
 gem 'pusher'
 
 gem 'capistrano'
+gem 'unicorn'
 
 group :production do
   gem 'mysql2'
